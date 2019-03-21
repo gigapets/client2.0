@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 
-
-class FoodForm extends React.Component {
+class FoodForm extends Component {
   state = {
     food: this.props.activeFood || {
-              username: '',
-              child: '',
-              pet: ''
+      id: Math.random(),
+      name: '',
+      breakfast: '',
+      lunch: ''
     }
   };
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.activeFood &&
-      prevProps.activeFood !== this.props.activeFood
-    ) {
+    if (prevProps.activeFood !== this.props.activeFood) {
       this.setState({
         food: this.props.activeFood
       });
@@ -27,9 +24,7 @@ class FoodForm extends React.Component {
   changeHandler = ev => {
     ev.persist();
     let value = ev.target.value;
-    if (ev.target.name === 'name') {
-      value = parseInt(value, 10);
-    }
+
     // We have a nested object on state - Here are the steps to update
     // a single property on that nested object
 
@@ -37,9 +32,8 @@ class FoodForm extends React.Component {
     // Spread in the properties from the old "item" object - ...this.state.item
     // update the one field we are trying to update
 
-
     this.setState(prevState => ({
-        food: {
+      food: {
         ...prevState.food,
         [ev.target.name]: value
       }
@@ -53,63 +47,57 @@ class FoodForm extends React.Component {
       this.props.addFood(e, this.state.food);
     }
     this.setState({
-        food: {
-              username: '',
-              child: '',
-              pet: ''
+      food: {
+        name: '',
+        breakfast: '',
+        lunch: ''
       }
     });
   };
 
+  // addFood = (e, food) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post('https://gigapets.herokuapp.com/gigapets', food)
+  //     .then(res => {
+  //       this.setState({
+  //         foods: res.data
+  //       });
+  //       // HTTP STEP V - Clear data form in ItemForm and route to /item-list
+  //       this.props.history.push('/food-list');
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
-
-
-addFood = (e, food) => {
-  e.preventDefault();
-  axios
-    .post('https://gigapets.herokuapp.com/gigapets', food)
-    .then(res => {
-      this.setState({
-        foods: res.data
-      });
-      // HTTP STEP V - Clear data form in ItemForm and route to /item-list
-      this.props.history.push('/food-list');
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};  
-
-
-
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  // handleInputChange = e => {
+  //   this.setState({ food: { [e.target.name]: e.target.value } });
+  // };
 
   render() {
     return (
       <div className="FoodForm">
-              <h2>{`${this.props.activeItem ? 'Update' : 'Add New'} Meal`}</h2>
-              <form onSubmit={this.handleSubmit}>
-
+        <h2>{`${this.props.activeFood ? 'Update' : 'Add New'} Meal`}</h2>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="string"
             onChange={this.changeHandler}
-            placeholder="username"
-            value={this.state.username}
-            name="username"
+            placeholder="name"
+            value={this.state.food.name}
+            name="name"
           />
           <input
             onChange={this.changeHandler}
-            placeholder="child"
-            value={this.state.child}
-            name="child"
+            placeholder="breakfast"
+            value={this.state.food.breakfast}
+            name="breakfast"
           />
           <input
             onChange={this.changeHandler}
-            placeholder="pet"
-            value={this.state.pet}
-            name="pet"
+            placeholder="lunch"
+            value={this.state.food.lunch || ''}
+            name="lunch"
           />
           <button type="submit">Add to GigaPets</button>
         </form>
