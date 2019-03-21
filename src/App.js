@@ -34,8 +34,9 @@ class App extends Component {
   // You'll need to make sure you have the right properties on state and pass them down to props.
   
   componentDidMount() {
+    console.log('inside Component Did Mount', this.state);
     axios
-      .get("http://localhost:3333/foods")
+      .get("https://gigapets.herokuapp.com/gigapets")
       .then(res => {
         console.log(res);
         this.setState({ foods: res.data });
@@ -50,7 +51,7 @@ class App extends Component {
   addFood = (e, food) => {
     e.preventDefault();
     axios
-      .post('http://localhost:3333/foods', food)
+      .post('https://gigapets.herokuapp.com/gigapets', food)
       .then(res => {
         this.setState({
           foods: res.data
@@ -73,11 +74,10 @@ class App extends Component {
   };
   
 
-
   updateFood = (e, food) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:3333/foods${food.id}`, food)
+      .put(`https://gigapets.herokuapp.com/gigapets${food.id}`, food)
       .then(res => {
         this.setState({
           activeFood: null,
@@ -91,9 +91,6 @@ class App extends Component {
   };
 
 
-
-
-
 render() {
   return (
     <div className="App">
@@ -105,7 +102,7 @@ render() {
             } Food`}</NavLink>
 
           <NavLink exact to="/">
-            Home
+            <p>Child's Food List</p>
           </NavLink>
         </div>
       </nav>
@@ -167,43 +164,3 @@ ReactDOM.render(
 );
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;

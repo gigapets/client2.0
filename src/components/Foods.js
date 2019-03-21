@@ -1,5 +1,4 @@
 //Home
-
 import React, { Component } from 'react';
 
 import Food from './Food';
@@ -11,12 +10,13 @@ class Foods extends Component {
         <h1>Welcome to GigaPets</h1>
         <ul>
           {this.props.foods.map(food => {
-            return (
+            console.log(food);
+            return ( 
               <Food
-              username={food.username}
+              name={food.name}
                 id={food.id}
-                age={food.age}
-                pet={food.pet}
+                breakfast={food.breakfast}
+                lunch={food.lunch}
                 key={food.id}
               />
             );
@@ -27,7 +27,7 @@ class Foods extends Component {
   }
 }
 
-Food.defaultProps = {
+Foods.defaultProps = {
  foods: [],
 };
 
