@@ -6,6 +6,7 @@ const Food = props => {
     food: null
   });
 
+
   useEffect(() => {
     props.foods && props.foods.length > 0
       ? setState({

@@ -4,6 +4,7 @@ import './App.css';
 import FoodForm from './components/FoodForm';
 import Foods from './components/Foods'; //Home
 import Food from './components/Food';
+// import login from './login';
 // import FoodsList from "./components/FoodsFood";
 // import Home from "./components/Home";
 // import "./styles.css";
@@ -11,6 +12,8 @@ import Food from './components/Food';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
+// import LoginForm from './LoginForm';
+
 
 class App extends Component {
   constructor(props) {
@@ -107,7 +110,11 @@ class App extends Component {
 
             <NavLink exact to="/">
               <p>Child's Food List</p>
-            </NavLink>
+              </NavLink>
+
+              {/* <NavLink exact to="/login">
+              <p>Login</p>
+            </NavLink> */}
           </div>
         </nav>
 
@@ -152,6 +159,20 @@ class App extends Component {
             />
           )}
         />
+  
+        {/* <Route
+          path="/LoginForm"
+          render={props => (
+            <LoginForm
+              // {...props}
+              // activeFood={this.state.activeFood}
+              // addFood={this.addFood}
+              // updateFood={this.updateFood}
+            />
+          )}
+        />     */}
+
+
       </div>
     );
   }
