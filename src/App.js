@@ -73,22 +73,19 @@ class App extends Component {
       .put(`https://gigapets.herokuapp.com/gigapets/${food.id}`, food)
       .then(res => {
         this.setState({
-          activeFood: null,
-          foods: res.data
+          foods: [...this.state.foods, res.data]
+          // activeFood: null,
+          // foods: res.data
         });
         this.props.history.push('/food-list');
       })
       .catch(err => {
-        const tempFoods = [...this.state.foods];
-        const index = tempFoods.findIndex(item => item.id == food.id);
-        let tempFood = { ...tempFoods[index] };
-        tempFood = food;
-        tempFoods[index] = tempFood;
-        this.setState({ foods: tempFoods });
-
-        console.log(err);
-      });
+          console.log(err);
+          // this.setState({ error: err });
+        });
   };
+
+
 
   deleteFood = id => {
     const tempFoods = [...this.state.foods];
