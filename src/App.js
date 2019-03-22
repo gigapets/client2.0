@@ -11,8 +11,9 @@ import Food from './components/Food';
 // import ReactDOM from 'react-dom';
 
 import { Route, NavLink, withRouter } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
 import axios from 'axios';
-// import LoginForm from './LoginForm';
 
 
 class App extends Component {
@@ -33,7 +34,7 @@ class App extends Component {
       .get('https://gigapets.herokuapp.com/gigapets')
       .then(res => {
         const foods = res.data.map(food =>
-          !food.lunch ? { ...food, lunch: 'Not time to luch yet' } : food
+          !food.lunch ? { ...food, lunch: 'What did child have for lunch' } : food
         );
         this.setState({ foods });
       })
@@ -43,22 +44,19 @@ class App extends Component {
       });
   }
 
-  addFood = (e, food) => {
-    e.preventDefault();
+  addFood = (food) => {
     axios
       .post('https://gigapets.herokuapp.com/gigapets', food)
       .then(res => {
         this.setState({
-          foods: res.data
+          foods: [...this.state.foods, res.data]
         });
         // HTTP STEP V - Clear data form in ItemForm and route to /item-list
         this.props.history.push('/food-list');
       })
       .catch(err => {
         console.log(err);
-        this.setState(prevState => ({
-          foods: [...prevState.foods, food]
-        }));
+        
       });
   };
 
@@ -69,11 +67,10 @@ class App extends Component {
     this.props.history.push('/food-form');
   };
 
-  updateFood = (e, food) => {
-    e.preventDefault();
+  updateFood = (food) => {
     console.log(food);
     axios
-      .put(`https://gigapets.herokuapp.com/gigapets${food.id}`, food)
+      .put(`https://gigapets.herokuapp.com/gigapets/${food.id}`, food)
       .then(res => {
         this.setState({
           activeFood: null,
@@ -112,9 +109,14 @@ class App extends Component {
               <p>Child's Food List</p>
               </NavLink>
 
-              {/* <NavLink exact to="/login">
+              <NavLink exact to="/login">
               <p>Login</p>
-            </NavLink> */}
+            </NavLink>
+
+              <NavLink exact to="/registration">
+              <p>Register</p>
+            </NavLink>
+
           </div>
         </nav>
 
@@ -160,17 +162,30 @@ class App extends Component {
           )}
         />
   
-        {/* <Route
-          path="/LoginForm"
+        <Route
+          path="/Login"
           render={props => (
-            <LoginForm
-              // {...props}
+            <Login
+              {...props}
+              activeFood={this.state.activeFood}
+              addFood={this.addFood}
+              updateFood={this.updateFood}
+            />
+          )}
+        /> 
+
+
+            <Route
+          path="/registration"
+          render={props => (
+            <Register
+              {...props}
               // activeFood={this.state.activeFood}
               // addFood={this.addFood}
               // updateFood={this.updateFood}
             />
           )}
-        />     */}
+        />    
 
 
       </div>

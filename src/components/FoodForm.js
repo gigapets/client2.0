@@ -5,13 +5,14 @@ import axios from 'axios';
 class FoodForm extends Component {
   state = {
     food: this.props.activeFood || {
-      id: Math.random(),
       name: '',
       breakfast: '',
       lunch: ''
     }
   };
 
+
+  
   componentDidUpdate(prevProps) {
     if (prevProps.activeFood !== this.props.activeFood) {
       this.setState({
@@ -41,10 +42,11 @@ class FoodForm extends Component {
   };
 
   handleSubmit = e => {
+    e.preventDefault();
     if (this.props.activeFood) {
-      this.props.updateFood(e, this.state.food);
+      this.props.updateFood(this.state.food);
     } else {
-      this.props.addFood(e, this.state.food);
+      this.props.addFood(this.state.food);
     }
     this.setState({
       food: {
