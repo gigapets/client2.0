@@ -12,6 +12,13 @@ const Food = props => {
   );
 };
 
+
+// Add delete & update button here? & (button onClick here? watch walk through video)
+/* <div>
+<button type="submit">Edit</button>
+{/* <button>Delete</button> */
+// </div> 
+
 Food.defaultProps = {
   name: '',
   breakfast: '',

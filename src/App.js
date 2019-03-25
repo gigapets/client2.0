@@ -4,10 +4,6 @@ import './App.css';
 import FoodForm from './components/FoodForm';
 import Foods from './components/Foods'; //Home
 import Food from './components/Food'; 
-// import FoodsList from "./components/FoodsFood";
-// import Home from "./components/Home";
-// import "./styles.css";
-
 
 import ReactDOM from "react-dom";
 import {
@@ -16,6 +12,10 @@ import {
   NavLink,
   withRouter
 } from "react-router-dom";
+
+import Login from './Login';
+import Register from './Register';
+
 import axios from "axios";
 
 
@@ -48,10 +48,9 @@ class App extends Component {
   }
   
 
-  addFood = (e, food) => {
-    e.preventDefault();
+  addFood = (food) => {
     axios
-      .post('https://gigapets.herokuapp.com/gigapets', food)
+      .post('https://gigapets.herokuapp.com/gigapets/', food)
       .then(res => {
         this.setState({
           foods: res.data
@@ -65,8 +64,7 @@ class App extends Component {
   };  
 
 
-  setUpdateForm = (e, food) => {
-    e.preventDefault();
+  setUpdateForm = food => {
     this.setState({
       activeFood: food
     });
@@ -74,14 +72,14 @@ class App extends Component {
   };
   
 
-  updateFood = (e, food) => {
-    e.preventDefault();
+  updateFood = (food) => {
     axios
-      .put(`https://gigapets.herokuapp.com/gigapets${food.id}`, food)
+      .put(`https://gigapets.herokuapp.com/gigapets/${food.id}`, food)
       .then(res => {
         this.setState({
-          activeFood: null,
-          foods: res.data
+          foods: [...this.state.foods, res.data]
+          // activeFood: null,
+          // foods: res.data
         });
         this.props.history.push("/food-list");
       })
@@ -104,6 +102,15 @@ render() {
           <NavLink exact to="/">
             <p>Child's Food List</p>
           </NavLink>
+          
+          <NavLink exact to="/login">
+              <p>Login</p>
+            </NavLink>
+
+          <NavLink exact to="/registration">
+              <p>Register</p>
+          </NavLink>
+
         </div>
       </nav>
 
@@ -120,17 +127,18 @@ render() {
             //               history={props.history}
             //               location={props.location}
             foods={this.state.foods}
+            setUpdateForm={this.setUpdateForm}
+            // deleteFood={this.deleteFood}
           />
         )}
       />
       <Route
         path="/food-list/:id"
         render={props => (
-        // <Food {...props} foods={this.state.foods} />}
-        <Food
+          <Food
         {...props}
-        // deleteItem={this.deleteItem}
         foods={this.state.foods}
+        // deleteFood={this.deleteFood}
         setUpdateForm={this.setUpdateForm}
       />
     )}
@@ -139,14 +147,46 @@ render() {
       <Route
       path="/food-form/"
       render={props => (
-<FoodForm
+          <FoodForm
               {...props}
               activeFood ={this.state.activeFood}
               addFood={this.addFood}
               updateFood={this.updateFood}
+              // setUpdateForm={this.setUpdateForm}
+              // deleteFood={this.deleteFood}
+              />
+              )}
+            />
+
+              <Route
+              path="/Login"
+              render={props => (
+                <Login
+                  {...props}
+                  activeFood={this.state.activeFood}
+                  addFood={this.addFood}
+                  updateFood={this.updateFood}
+                />
+              )}
+            /> 
+    
+    
+              <Route
+              path="/registration"
+              render={props => (
+                <Register
+                  {...props}
+                  // activeFood={this.state.activeFood}
+                  // addFood={this.addFood}
+                  // updateFood={this.updateFood}       
             />
           )}
         />
+     
+     {/* /* <Route Add delete, login & registration method here*/} */}
+     
+     
+     
       </div>
     );
   }

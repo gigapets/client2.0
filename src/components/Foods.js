@@ -17,6 +17,8 @@ class Foods extends Component {
                 breakfast={food.breakfast}
                 lunch={food.lunch}
                 key={food.id}
+                setUpdateForm={this.props.setUpdateForm}
+                // deleteFood={this.props.deleteFood}
               />
             );
           })}
