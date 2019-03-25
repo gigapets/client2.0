@@ -10,11 +10,10 @@ class Foods extends Component {
         <h1>Welcome to GigaPets</h1>
         <ul>
           {this.props.foods.map(food => {
-            console.log(food);
-            return ( 
+            return (
               <Food
-              name={food.name}
                 id={food.id}
+                name={food.name}
                 breakfast={food.breakfast}
                 lunch={food.lunch}
                 key={food.id}
@@ -28,7 +27,7 @@ class Foods extends Component {
 }
 
 Foods.defaultProps = {
- foods: [],
+  foods: []
 };
 
 export default Foods;
