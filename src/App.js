@@ -1,9 +1,14 @@
+// this original get & post working
+
 import React, { Component } from 'react';
 
 import './App.css';
 import FoodForm from './components/FoodForm';
-import Foods from './components/Foods'; //Home
+import Foods from './components/Foods'; 
 import Food from './components/Food'; 
+
+import Home from './components/Home';
+import FoodList from './components/FoodList';
 
 import ReactDOM from "react-dom";
 import {
@@ -29,9 +34,6 @@ class App extends Component {
       error: ""
     };
   }
-  // add any needed code to ensure that the foods collection exists on state and it has data coming from the server
-  // Notice what your map function is looping over and returning inside of Foods.
-  // You'll need to make sure you have the right properties on state and pass them down to props.
   
   componentDidMount() {
     console.log('inside Component Did Mount', this.state);
@@ -55,7 +57,7 @@ class App extends Component {
         this.setState({
           foods: res.data
         });
-        // HTTP STEP V - Clear data form in ItemForm and route to /item-list
+        // HTTP STEP V - Clear data form in FoodForm and route to /food-list
         this.props.history.push('/food-list');
       })
       .catch(err => {
@@ -66,7 +68,8 @@ class App extends Component {
 
   setUpdateForm = food => {
     this.setState({
-      activeFood: food
+      // activeFood: food
+      foods: food
     });
     this.props.history.push("/food-form");
   };
@@ -88,12 +91,28 @@ class App extends Component {
       });
   };
 
+  deleteFood = (id) => {
+    console.log('now in deleteFood in App');
+    axios
+      .delete(`https://gigapets.herokuapp.com/gigapets/${id}`)
+      .then(res => {
+        console.log('Data is back, now set state and reroute', res.data);
+        this.setState({
+          foods: res.data
+        });
+        this.props.history.push('/food-list');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
 
 render() {
   return (
     <div className="App">
       <nav>
-
+      <h1 className="store-header">Welcome to GigaPets</h1>
         <div className="nav-links">
         <NavLink to="/food-form">{`${
               this.state.activeFood ? 'Update' : 'Add'
@@ -102,6 +121,8 @@ render() {
           <NavLink exact to="/">
             <p>Child's Food List</p>
           </NavLink>
+
+          <NavLink to="/food-list">List</NavLink>
           
           <NavLink exact to="/login">
               <p>Login</p>
@@ -110,16 +131,16 @@ render() {
           <NavLink exact to="/registration">
               <p>Register</p>
           </NavLink>
-
         </div>
       </nav>
 
+      <Route exact path="/" component={Home} />
       
 
       {/* <Route exact path="/" component={Foods} /> cHECK LINE 143*/}
-      <Route
+      {/* <Route
         exact
-        path="/"
+        path="/food-list"
         render={props => (
           <Foods
             {...props} // this is the same as below
@@ -128,10 +149,26 @@ render() {
             //               location={props.location}
             foods={this.state.foods}
             setUpdateForm={this.setUpdateForm}
-            // deleteFood={this.deleteFood}
+            deleteFood={this.deleteFood}
           />
         )}
-      />
+      /> */}
+
+       <Route
+          path="/food-list"
+          exact
+          render={
+            props => <FoodList {...props} foods={this.state.foods} />
+            // same as
+            //   <FoodList
+            //     history={props.history}
+            //     foods={this.state.foods}
+            //     location={props.location}
+            //     match={props.match}
+            //   />
+          }
+        />
+
       <Route
         path="/food-list/:id"
         render={props => (
@@ -152,8 +189,8 @@ render() {
               activeFood ={this.state.activeFood}
               addFood={this.addFood}
               updateFood={this.updateFood}
-              // setUpdateForm={this.setUpdateForm}
-              // deleteFood={this.deleteFood}
+              setUpdateForm={this.setUpdateForm}
+              deleteFood={this.deleteFood}
               />
               )}
             />

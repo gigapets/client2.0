@@ -1,3 +1,5 @@
+// AddForm 
+
 import React, { Component } from 'react';
 
 import axios from "axios";
@@ -5,7 +7,7 @@ import axios from "axios";
 
 class FoodForm extends React.Component {
   state = {
-    food: this.props.activeFood || {
+    food: this.props.activeFood ||  {
               name: '',
               breakfast: '',
               lunch: ''
@@ -31,8 +33,8 @@ class FoodForm extends React.Component {
     // We have a nested object on state - Here are the steps to update
     // a single property on that nested object
 
-    // Inside setState, we want to update "item" with a new object
-    // Spread in the properties from the old "item" object - ...this.state.item
+    // Inside setState, we want to update "food" with a new object
+    // Spread in the properties from the old "food" object - ...this.state.food
     // update the one field we are trying to update
 
 
@@ -64,7 +66,7 @@ class FoodForm extends React.Component {
   render() {
     return (
       <div className="FoodForm">
-              <h2>{`${this.props.activeItem ? 'Update' : 'Add New'} Food`}</h2>
+              <h2>{`${this.props.activeFood ? 'Update' : 'Add New'} Food`}</h2>
               <form onSubmit={this.handleSubmit}>
 
           <input
@@ -87,6 +89,7 @@ class FoodForm extends React.Component {
             name="lunch"
           />
           <button type="submit">Add to GigaPets</button>
+
         </form>
       </div>
     );

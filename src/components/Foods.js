@@ -18,12 +18,13 @@ class Foods extends Component {
                 lunch={food.lunch}
                 key={food.id}
                 setUpdateForm={this.props.setUpdateForm}
-                // deleteFood={this.props.deleteFood}
+                deleteFood={this.props.deleteFood}
               />
             );
           })}
         </ul>
       </div>
+      
     );
   }
 }

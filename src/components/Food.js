@@ -12,8 +12,43 @@ const Food = props => {
   );
 };
 
+// 1. watch walk through video
+// 3. update button here? & 
+// 2. Add delete & 
+// 5. Add form for Update food
+// 4. (button onClick here? 
 
-// Add delete & update button here? & (button onClick here? watch walk through video)
+// render() {
+//   return (
+//     <div className="EditFoodForm">
+//             <h2>{`${this.props.activeFood ? 'Update' : 'Add New'} Food`}</h2>
+//             <form onSubmit={this.handleSubmit}>
+
+//         <input
+//           type="string"
+//           onChange={this.changeHandler}
+//           placeholder="name"
+//           value={this.state.name}
+//           name="name"
+//         />
+//         <input
+//           onChange={this.changeHandler}
+//           placeholder="breakfast"
+//           value={this.state.breakfast}
+//           name="breakfast"
+//         />
+//         <input
+//           onChange={this.changeHandler}
+//           placeholder="lunch"
+//           value={this.state.lunch}
+//           name="lunch"
+//         />
+//         <button type="submit">Edit to GigaPets</button>
+//       </form>
+//     </div>
+//   );
+// }
+
 /* <div>
 <button type="submit">Edit</button>
 {/* <button>Delete</button> */
