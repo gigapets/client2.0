@@ -18,8 +18,8 @@ function FoodsList(props) {
             />
 
             <p>{food.name}</p>
-            <p>${food.breakfast}</p>
-            <p>${food.lunch}</p>
+            <p>{food.breakfast}</p>
+            <p>{food.lunch}</p>
           </div>
         </Link>
       ))}

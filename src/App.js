@@ -1,4 +1,5 @@
 // this original get & post working
+// got the id/new page but its blank right now
 
 import React, { Component } from 'react';
 
@@ -68,8 +69,8 @@ class App extends Component {
 
   setUpdateForm = food => {
     this.setState({
-      // activeFood: food
-      foods: food
+      activeFood: food,
+      foods: food,
     });
     this.props.history.push("/food-form");
   };
@@ -119,7 +120,7 @@ render() {
             } Food`}</NavLink>
 
           <NavLink exact to="/">
-            <p>Child's Food List</p>
+            <p>Home</p>
           </NavLink>
 
           <NavLink to="/food-list">List</NavLink>
@@ -135,7 +136,10 @@ render() {
       </nav>
 
       <Route exact path="/" component={Home} />
-      
+      <NavLink to="/food-list">Foods</NavLink>
+
+      <Route exact path="/" component={Home} />
+
 
       {/* <Route exact path="/" component={Foods} /> cHECK LINE 143*/}
       {/* <Route
