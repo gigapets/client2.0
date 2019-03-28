@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Route, NavLink } from 'react-router-dom';
 
+//note to self: take the e out
 
 
 function Food({ foods, match, deleteFood, setUpdateForm }) {
@@ -24,6 +25,17 @@ function Food({ foods, match, deleteFood, setUpdateForm }) {
   if (!food) {
     return <h3>Loading foods...</h3>;
   }
+
+
+  // function Food(props) {
+  //   const food = props.foods.find(
+  //     thing => `${thing.id}` === props.match.params.id
+  //   );
+  
+    // if (!props.foods.length || !food) {
+    //   return <h2>Loading food data...</h2>;
+    // }
+
   return (
     <div className="food-wrapper">
       <div className="food-header">
@@ -38,25 +50,25 @@ function Food({ foods, match, deleteFood, setUpdateForm }) {
       </div>
 
       {/* Add a nested nav, and nested routes in our JSX */}
-      <nav className="food-sub-nav">
+      {/* <nav className="food-sub-nav">
         <NavLink exact to={`/food-list/${food.id}`}>
           the story
         </NavLink>
-      </nav>
+      </nav> */}
 
-
+{/* TODO: able to delete on the page & in data after refresh  */}
       <button
         onClick={e => {
           console.log('Hitting delete button - onClick handler');
           deleteFood(e, food.id);
-        }}
-        className="md-button"
-      >
-        Delete Food
+        }} className="md-button"> Delete Food
       </button>
+
+       {/* TODO: gets form but doesnt update after submit */}
       <button onClick={e => setUpdateForm(e, food)} className="md-button">
         Update Food
       </button>
+
     </div>
   );
 }
@@ -125,4 +137,3 @@ export default Food;
 // };
 
 // export default Food;
-

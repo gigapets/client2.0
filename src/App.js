@@ -67,10 +67,11 @@ class App extends Component {
   };  
 
 
-  setUpdateForm = food => {
+  setUpdateForm = (e, food) => {
+    e.preventDefault();
     this.setState({
       activeFood: food,
-      foods: food,
+      // foods: food,
     });
     this.props.history.push("/food-form");
   };
@@ -81,7 +82,8 @@ class App extends Component {
       .put(`https://gigapets.herokuapp.com/gigapets/${food.id}`, food)
       .then(res => {
         this.setState({
-          foods: [...this.state.foods, res.data]
+          foods: 
+          [...this.state.foods, res.data]
           // activeFood: null,
           // foods: res.data
         });
@@ -92,7 +94,8 @@ class App extends Component {
       });
   };
 
-  deleteFood = (id) => {
+
+  deleteFood = (e, id) => {
     console.log('now in deleteFood in App');
     axios
       .delete(`https://gigapets.herokuapp.com/gigapets/${id}`)
@@ -116,7 +119,7 @@ render() {
       <h1 className="store-header">Welcome to GigaPets</h1>
         <div className="nav-links">
         <NavLink to="/food-form">{`${
-              this.state.activeFood ? 'Update' : 'Add'
+              this.state.activeFood ? 'Update' : 'Add New'
             } Food`}</NavLink>
 
           <NavLink exact to="/">
@@ -141,8 +144,8 @@ render() {
       <Route exact path="/" component={Home} />
 
 
-      {/* <Route exact path="/" component={Foods} /> cHECK LINE 143*/}
-      {/* <Route
+      {/* <Route exact path="/" component={Foods} /> cHECK LINE 143
+       <Route
         exact
         path="/food-list"
         render={props => (
@@ -156,21 +159,27 @@ render() {
             deleteFood={this.deleteFood}
           />
         )}
-      /> */}
+      />  */}
 
        <Route
           path="/food-list"
           exact
-          render={
-            props => <FoodList {...props} foods={this.state.foods} />
-            // same as
+          render={props => (
+          <FoodList 
+          {...props}
+          // same as
             //   <FoodList
             //     history={props.history}
             //     foods={this.state.foods}
             //     location={props.location}
-            //     match={props.match}
-            //   />
-          }
+            //     match={props.match} 
+            foods={this.state.foods}
+            setUpdateForm={this.setUpdateForm}
+            updateFood={this.updateFood}
+            deleteFood={this.deleteFood}
+            
+            />
+          )}
         />
 
       <Route
@@ -179,7 +188,8 @@ render() {
           <Food
         {...props}
         foods={this.state.foods}
-        // deleteFood={this.deleteFood}
+        deleteFood={this.deleteFood}
+        updateFood={this.updateFood}
         setUpdateForm={this.setUpdateForm}
       />
     )}
@@ -224,7 +234,7 @@ render() {
           )}
         />
      
-     {/* /* <Route Add delete, login & registration method here*/} */}
+     {/* /* <Route Add delete, login & registration method here*/} 
      
      
      
@@ -234,14 +244,6 @@ render() {
 }
  
 
-const AppWithRouter = withRouter(App);
 
-const rootElement = document.getElementById('root');
-ReactDOM.render(
-  <Router>
-    <AppWithRouter />
-  </Router>,
-  rootElement
-);
 
-export default App;
+export default withRouter(App);

@@ -11,7 +11,6 @@ function Home(props) {
     <div className="home-wrapper">
       <img
         className="home-image"
-        src="https://www.uncommongoods.com/images/category/fun-fullwidth.jpg"
         alt=""
       />
       <button onClick={navigateToList} className="md-button shop-button">

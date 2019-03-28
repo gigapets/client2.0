@@ -1,5 +1,4 @@
 // AddForm 
-
 import React, { Component } from 'react';
 
 import axios from "axios";
@@ -7,7 +6,9 @@ import axios from "axios";
 
 class FoodForm extends React.Component {
   state = {
-    food: this.props.activeFood ||  {
+    food: 
+    this.props.activeFood ||  
+    {
               name: '',
               breakfast: '',
               lunch: ''
@@ -73,23 +74,26 @@ class FoodForm extends React.Component {
             type="string"
             onChange={this.changeHandler}
             placeholder="name"
-            value={this.state.name}
+            value={this.state.food.name}
             name="name"
           />
           <input
             onChange={this.changeHandler}
             placeholder="breakfast"
-            value={this.state.breakfast}
+            value={this.state.food.breakfast}
             name="breakfast"
           />
           <input
             onChange={this.changeHandler}
             placeholder="lunch"
-            value={this.state.lunch}
+            value={this.state.food.lunch}
             name="lunch"
           />
-          <button type="submit">Add to GigaPets</button>
+          {/* <button type="submit">Add to GigaPets</button> */}
 
+          <button className="md-button form-button">{`${
+            this.props.activeFood ? 'Update' : 'Add New'
+          } Item`}</button>
         </form>
       </div>
     );
