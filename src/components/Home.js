@@ -13,9 +13,9 @@ function Home(props) {
         className="home-image"
         alt=""
       />
-      <button onClick={navigateToList} className="md-button shop-button">
+      {/* <button onClick={navigateToList} className="md-button shop-button">
         View the List!
-      </button>
+      </button> */}
     </div>
   );
 }
